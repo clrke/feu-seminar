@@ -9,7 +9,7 @@ class PostsController extends \BaseController {
 	 */
 	public function index()
 	{
-		return Post::all();
+		return Post::with('comments')->get();
 	}
 
 
@@ -45,7 +45,11 @@ class PostsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		return Post::find($id);
+		Post::find($id)->comments()->insert([
+			'post_id' => $id,
+			'contents' => 'Cool!'
+			]);
+		return Post::with('comments')->find($id);
 	}
 
 
