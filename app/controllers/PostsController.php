@@ -9,7 +9,8 @@ class PostsController extends \BaseController {
 	 */
 	public function index()
 	{
-		return Post::with('comments')->get();
+		$posts = Post::with('comments')->get(); 
+		return View::make('posts.index', compact('posts'));
 	}
 
 
@@ -20,9 +21,7 @@ class PostsController extends \BaseController {
 	 */
 	public function create()
 	{
-		return Post::create([
-				'contents' => 'Enjoy! Hehe'
-			]);
+		return View::make('posts.create');
 	}
 
 
@@ -33,7 +32,8 @@ class PostsController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		Post::create(Input::all());
+		return Redirect::route('posts.index');
 	}
 
 
@@ -45,7 +45,8 @@ class PostsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		return Post::with('comments')->find($id);
+		$post = Post::with('comments')->find($id);
+		return View::make('posts.show', compact('post'));
 	}
 
 
@@ -84,6 +85,7 @@ class PostsController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		return Post::destroy($id);
+		Post::destroy($id);
+		return Redirect::route('posts.index');
 	}
 }
