@@ -9,7 +9,7 @@ class PostsController extends \BaseController {
 	 */
 	public function index()
 	{
-		return 'Hello World!';
+		return Post::all();
 	}
 
 
@@ -20,7 +20,9 @@ class PostsController extends \BaseController {
 	 */
 	public function create()
 	{
-		return 'Create Hello World!';
+		return Post::create([
+				'contents' => 'Enjoy! Hehe'
+			]);
 	}
 
 
@@ -43,7 +45,7 @@ class PostsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		return 'Hello '.$id;
+		return Post::find($id);
 	}
 
 
@@ -55,7 +57,10 @@ class PostsController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		$post = Post::find($id);
+		$post->update(['contents' => 'Here at FEU-EAC!']);
+
+		return $post;
 	}
 
 
@@ -79,8 +84,6 @@ class PostsController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		return Post::destroy($id);
 	}
-
-
 }
