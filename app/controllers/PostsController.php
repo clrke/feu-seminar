@@ -45,10 +45,6 @@ class PostsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		Post::find($id)->comments()->insert([
-			'post_id' => $id,
-			'contents' => 'Cool!'
-			]);
 		return Post::with('comments')->find($id);
 	}
 
